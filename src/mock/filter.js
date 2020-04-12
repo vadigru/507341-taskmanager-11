@@ -1,51 +1,43 @@
-const filterNames = [
-  `all`, `overdue`, `today`, `favorites`, `repeating`, `archive`
-];
+import {FILTER_NAMES} from '../const.js';
 
-const getRepeatingDaysCount = (item) => {
-  const keys = Object.keys(item);
-  let result;
-  for (const key of keys) {
-    if (item[key] === true) {
-      result = true;
-    }
-  }
-  return result;
-};
-
-const getFiltersCount = (index, tasks) => {
+const getFiltersCount = (tasks, name) => {
   const arr = [];
+  const isOverdue = (it) => new Date(it.dueDate) < new Date() && it.dueDate !== null ? arr.push(it) : ``;
+  const isToday = (it) => new Date(it.dueDate).getDate() === new Date().getDate() ? arr.push(it) : ``;
+  const isFavorite = (it) => it.isFavorite ? arr.push(it) : ``;
+  const isRepeating = (it) => Object.keys(it).some((dayName) => it[dayName] ? arr.push(it) : ``);
+  const isArchive = (it) => it.isArchive ? arr.push(it) : ``;
 
-  tasks.forEach((item) => {
-    if (index === filterNames.indexOf(`all`)) {
-      arr.push(item);
-    }
-    if (index === 1 && item.dueDate < new Date() && item.dueDate !== null) {
-      arr.push(item);
-    }
-    if (index === 2 && item.dueDate === new Date()) {
-      arr.push(item);
-    }
-    if (index === 3 && item.isFavorite) {
-      arr.push(item);
-    }
-    if (index === 4 && getRepeatingDaysCount(item.repeatingDays)) {
-      arr.push(item);
-    }
-    if (index === 5 && item.isArchive) {
-      arr.push(item);
+  tasks.forEach((it) => {
+    switch (name) {
+      case `overdue`:
+        isOverdue(it);
+        break;
+      case `today`:
+        isToday(it);
+        break;
+      case `favorites`:
+        isFavorite(it);
+        break;
+      case `repeating`:
+        isRepeating(it.repeatingDays);
+        break;
+      case `archive`:
+        isArchive(it);
+        break;
+      default:
+        arr.push(it);
     }
   });
+
   return arr.length;
 };
 
-const generateFilters = (tasks) => {
-  return filterNames.map((it, i) => {
+export const generateFilters = (tasks) => {
+  return FILTER_NAMES.map((it) => {
     return {
       name: it,
-      count: getFiltersCount(i, tasks),
+      count: getFiltersCount(tasks, it),
     };
   });
 };
-
-export {generateFilters};

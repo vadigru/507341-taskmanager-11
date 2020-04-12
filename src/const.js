@@ -16,3 +16,23 @@ export const MONTH_NAMES = [
   `November`,
   `December`,
 ];
+
+export const FILTER_NAMES = [
+  `all`, `overdue`, `today`, `favorites`, `repeating`, `archive`
+];
+
+export const DescriptionItems = [
+  `Изучить теорию`,
+  `Сделать домашку`,
+  `Пройти интенсив на соточку`,
+];
+
+export const DefaultRepeatingDays = {
+  "mo": false,
+  "tu": false,
+  "we": false,
+  "th": false,
+  "fr": false,
+  "sa": false,
+  "su": false,
+};
