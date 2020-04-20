@@ -1,5 +1,5 @@
 import {COLORS, DAYS, DescriptionItems, DefaultRepeatingDays} from '../const.js';
-import {getRandomArrayItem, getRandomDate} from '../utils.js';
+import {getRandomArrayItem, getRandomDate} from '../utils/common.js';
 
 const generateRepeatingDays = () => {
   const repeatingDay = Object.assign({}, DefaultRepeatingDays);
