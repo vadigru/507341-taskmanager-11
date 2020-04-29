@@ -1,5 +1,5 @@
 import AbstractSmartComponent from './abstract-smart-component.js';
-import {COLORS, DAYS, MONTH_NAMES} from "../const.js";
+import {COLORS, DAYS} from "../const.js";
 import {formatTime, formatDate} from "../utils/common.js";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
